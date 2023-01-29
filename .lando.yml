@@ -1,0 +1,4 @@
+name: ecom
+recipe: laravel
+config:
+  webroot: .
