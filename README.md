@@ -27,4 +27,4 @@ To add the product to existing created order hit URL with product id with POST r
 To pay for the order hit the URL with POST request.
 <base_url>/api/orders/<id>/pay
 
-*I have used the file stored in storage folder to import cuatomer and product data as you URL is giving some problem about fetching the data.
+** I have used the file stored in storage folder to import cuatomer and product data as you URL is giving some problem about fetching the data.
