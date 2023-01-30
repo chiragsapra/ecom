@@ -71,16 +71,22 @@ class OrderController extends Controller {
         $product = $this->product->find($product_id);
         $order = $this->orders->find($id);
         $total = $order->total;
-        if ($product && $order) {
-            $orderproducts = $this->orderproducts;
-            $orderproducts->orderid = $id;
-            $orderproducts->productid = $product_id;
-            $orderproducts->save();
-            Log::channel('command')->info("Product Add:" . $id . " " . $product_id);
-            $order->total = $total + $product->price;
-            $order->save();
+        if ($product) {
+            if ($order->status == 0) {
+                $orderproducts = $this->orderproducts;
+                $orderproducts->orderid = $id;
+                $orderproducts->productid = $product_id;
+                $orderproducts->save();
+                Log::channel('command')->info("Product Add:" . $id . " " . $product_id);
+                $order->total = $total + $product->price;
+                $order->save();
+                return response()->json('Product added to order successfully', 201);
+            } else {
+                return response()->json('You cannot add product to paid order', 406);
+            }
+        } else {
+            return response()->json('Product is not found', 404);
         }
-        return response()->json('Product added to order successfully', 201);
     }
 
     public function pay($id) {
