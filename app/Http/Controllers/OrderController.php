@@ -25,6 +25,11 @@ class OrderController extends Controller {
             $data['id'] = $order->id;
             $data['email'] = $order->email;
             $data['total'] = $order->total;
+            if ($order->status == 1) {
+                $data['payment'] = 'Payment Successful.';
+            } else {
+                $data['payment'] = 'Payment is not done yet.';
+            }
             $query = DB::table('orderProducts')
                 ->select('*')
                 ->where('orderid', '=', $order->id)
